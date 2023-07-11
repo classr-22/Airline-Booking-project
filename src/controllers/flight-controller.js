@@ -55,7 +55,29 @@ const getAll=async(req,res) => {
 }
 
 
+const get=async(req,res) => {
+    try {
+        const flight = await flightService.getFlight(req.params.id);
+        return res.status(SuccessCodes.OK).json({
+            data: flight,
+            success: true,
+            message: "successfully fetched a flight",
+            err: {}
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: " not able to fetch a flight",
+            err: error
+        });
+    }
+}
+
+
 module.exports = {
     create,
-    getAll
+    getAll,
+    get
 }
